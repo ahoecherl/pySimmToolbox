@@ -1,7 +1,7 @@
 import unittest
-from IMTree.CrifTree import CrifTree
+from ResultTrees.ImTree import ImTree
 
-class CrifTreeTest(unittest.TestCase):
+class ImTreeTest(unittest.TestCase):
 
     def setUp(self):
         self.exTreeString = '''Level,Im Model,Silo,RiskClass,SensitivityType,Bucket,WeightedSensitivity,ExposureAmount
@@ -13,6 +13,5 @@ class CrifTreeTest(unittest.TestCase):
 6.Bucket,SIMM-P,RatesFX,Interest Rate,Delta,JPY,,2023872525.630011'''
 
     def testCrifTree(self):
-        crifTree = CrifTree(self.exTreeString)
+        crifTree = ImTree(self.exTreeString)
         asdf=1
-

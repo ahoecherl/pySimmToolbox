@@ -12,7 +12,6 @@ Arrays = autoclass('java.util.Arrays')
 ArrayList = autoclass('java.util.ArrayList')
 GenerateCsvString = autoclass('com.acadiasoft.im.base.imtree.GenerateCsvString')
 
-
 class javaClass():
 
     def getJavaObj(self):
@@ -21,17 +20,29 @@ class javaClass():
 
 class Sensitivity(javaClass):
 
-    def __init__(self, productClass, riskType, qualifier, bucket, label1, label2, amount, amountCurrency, amountUSD):
-        Sensitivity = autoclass('com.acadiasoft.im.simm.model.Sensitivity')
-        self.object = Sensitivity(String(productClass),
-                           String(riskType),
-                           String(qualifier),
-                           String(bucket),
-                           String(label1),
-                           String(label2),
-                           BigDecimal(str(amount)),
-                                  String(amountCurrency),
-                                  BigDecimal(str(amount)))
+    def __init__(self, *args):
+        if len(args) == 1:
+            self.object = args[0]
+        else:
+            JavaSensitivity = autoclass('com.acadiasoft.im.simm.model.Sensitivity')
+            productClass = args[0]
+            riskType = args[1]
+            qualifier = args[2]
+            bucket = args[3]
+            label1 = args[4]
+            label2 = args[5]
+            amount = args[6]
+            amountCurrency = args[7]
+            amountUSD = args[8]
+            self.object = JavaSensitivity(String(productClass),
+                                      String(riskType),
+                                      String(qualifier),
+                                      String(bucket),
+                                      String(label1),
+                                      String(label2),
+                                      BigDecimal(str(amount)),
+                                      String(amountCurrency),
+                                      BigDecimal(str(amountUSD)))
 
     def getRiskType(self):
         return self.object.getRiskType()

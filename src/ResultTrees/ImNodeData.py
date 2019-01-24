@@ -1,22 +1,28 @@
-class CrifNodeData(object):
+import pandas as pd
+
+class ImNodeData(object):
     def __init__(self, row):
+        self.rowNumber = row[0]
         self.Level = int(row[1].Level[0])
         self.levelName = row[1].Level[2:]
-        self.value = row[1].ExposureAmount
+        self.ExposureAmount = row[1].ExposureAmount
         if self.Level == 1:
             self.manifestation = 'Total'
-        if self.Level == 2:
+        elif self.Level == 2:
             self.manifestation = row[1]['Im Model']
-        if self.Level == 3:
+        elif self.Level == 3:
             self.manifestation = row[1]['Silo']
-        if self.Level == 4:
+        elif self.Level == 4:
             self.manifestation = row[1]['RiskClass']
-        if self.Level == 5:
+        elif self.Level == 5:
             self.manifestation = row[1]['SensitivityType']
-        if self.Level == 6:
+        elif self.Level == 6:
             self.manifestation = row[1]['Bucket']
-        if self.Level == 7:
+        elif self.Level == 7:
             self.manifestation = row[1]['WeightedSensitivity']
+        self.identifier = ''
+        for i in range(1, self.Level):
+            self.identifier = self.identifier + row[1][i]
 
     def __str__(self):
-        return self.manifestation + ' ' + '%.0f' % self.value
+        return self.manifestation + ' ' + '%.0f' % self.ExposureAmount

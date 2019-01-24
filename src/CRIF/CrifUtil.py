@@ -1,6 +1,6 @@
 import pandas as pd
 
-def read_csv(path):
+def read_csv(path, sep=','):
     dtypes = {'ValuationDate': str,
               'IMLedis': str,
               'tradeId': str,
@@ -15,9 +15,27 @@ def read_csv(path):
               'amountUSD': float,
               'EndDate': str,
               'CollectRegulations': str,
-              'PostRegulations': str}
+              'PostRegulations': str,
+              'postRegulations': str,
+              'collectRegulations': str,
+              'crifNo': str,
+              'valuationDate': str,
+              'endDate': str}
 
-    result = pd.read_csv(path, sep=',', dtype=dtypes)
+
+    result = pd.read_csv(path, sep=sep, dtype=dtypes)
+    result.rename(index=str, columns={'valuationDate':'ValuationDate',
+                                      'crifNo':'IMLedis','endDate':'EndDate',
+                                      'postRegulations':'PostRegulations',
+                                      'collectRegulations':'CollectRegulations',
+                                      'imModel':'IMModel',
+                                      'tradeID':'tradeId'}
+                  , inplace=True)
+    temp = pd.to_datetime(result.ValuationDate).dt.strftime('%Y-%m-%d')
+    temp.replace('NaT', '', inplace=True)
+    result['ValuationDate'] = temp
+    temp2 = pd.to_datetime(result.EndDate).dt.strftime('%Y-%m-%d')
+    temp2.replace('NaT', '', inplace=True)
+    result['EndDate'] = temp2
     result = result.fillna('')
-    asdf = 1
     return result
