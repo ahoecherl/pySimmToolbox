@@ -22,7 +22,10 @@ class ImNodeData(object):
             self.manifestation = row[1]['WeightedSensitivity']
         self.identifier = ''
         for i in range(1, self.Level):
-            self.identifier = self.identifier + row[1][i]
+            if self.identifier == '':
+                self.identifier = self.identifier + row[1][i]
+            else:
+                self.identifier = self.identifier + '_' + row[1][i]
 
     def __str__(self):
         return self.manifestation + ' ' + '%.0f' % self.ExposureAmount

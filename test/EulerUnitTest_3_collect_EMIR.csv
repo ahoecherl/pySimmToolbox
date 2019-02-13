@@ -1,0 +1,31 @@
+,nodeIdentifier,valueType,trade,value
+0,,exposure,,852.0
+1,,eulerAllocation,TestBumpOffset1,378.4564131038496
+2,,eulerAllocation,TestBumpOffset2,473.5435868962668
+3,,standaloneAllocation,TestBumpOffset1,852000.0
+4,,standaloneAllocation,TestBumpOffset2,852852.0
+5,SIMM-P,exposure,,852.0
+6,SIMM-P,eulerAllocation,TestBumpOffset1,378.4564131038496
+7,SIMM-P,eulerAllocation,TestBumpOffset2,473.5435868962668
+8,SIMM-P,standaloneAllocation,TestBumpOffset1,852000.0
+9,SIMM-P,standaloneAllocation,TestBumpOffset2,852852.0
+10,SIMM-P_RatesFX,exposure,,852.0
+11,SIMM-P_RatesFX,eulerAllocation,TestBumpOffset1,378.4564131038496
+12,SIMM-P_RatesFX,eulerAllocation,TestBumpOffset2,473.5435868962668
+13,SIMM-P_RatesFX,standaloneAllocation,TestBumpOffset1,852000.0
+14,SIMM-P_RatesFX,standaloneAllocation,TestBumpOffset2,852852.0
+15,SIMM-P_RatesFX_Interest Rate,exposure,,852.0
+16,SIMM-P_RatesFX_Interest Rate,eulerAllocation,TestBumpOffset1,378.4564131038496
+17,SIMM-P_RatesFX_Interest Rate,eulerAllocation,TestBumpOffset2,473.5435868962668
+18,SIMM-P_RatesFX_Interest Rate,standaloneAllocation,TestBumpOffset1,852000.0
+19,SIMM-P_RatesFX_Interest Rate,standaloneAllocation,TestBumpOffset2,852852.0
+20,SIMM-P_RatesFX_Interest Rate_Delta,exposure,,852.0
+21,SIMM-P_RatesFX_Interest Rate_Delta,eulerAllocation,TestBumpOffset1,378.4564131038496
+22,SIMM-P_RatesFX_Interest Rate_Delta,eulerAllocation,TestBumpOffset2,473.5435868962668
+23,SIMM-P_RatesFX_Interest Rate_Delta,standaloneAllocation,TestBumpOffset1,852000.0
+24,SIMM-P_RatesFX_Interest Rate_Delta,standaloneAllocation,TestBumpOffset2,852852.0
+25,SIMM-P_RatesFX_Interest Rate_Delta_EUR,exposure,,852.0
+26,SIMM-P_RatesFX_Interest Rate_Delta_EUR,eulerAllocation,TestBumpOffset1,378.4564131038496
+27,SIMM-P_RatesFX_Interest Rate_Delta_EUR,eulerAllocation,TestBumpOffset2,473.5435868962668
+28,SIMM-P_RatesFX_Interest Rate_Delta_EUR,standaloneAllocation,TestBumpOffset1,852000.0
+29,SIMM-P_RatesFX_Interest Rate_Delta_EUR,standaloneAllocation,TestBumpOffset2,852852.0

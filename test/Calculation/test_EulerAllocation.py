@@ -39,6 +39,7 @@ class EulerAllocationTest(unittest.TestCase):
         crif = Crif(Input)
         imTree = StandardCalculation.calculate(crif)
         imTree = EulerAllocation.calculate(imTree)
+        imTree = StandaloneAllocation.calculate(imTree)
         toc = time.time()
         print( toc - tic)
         asdf = 1

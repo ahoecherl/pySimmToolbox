@@ -1,0 +1,7 @@
+,nodeIdentifier,valueType,trade,value
+0,,exposure,,0
+1,,standaloneAllocation,TestZero1,0
+2,,standaloneAllocation,TestZero2,0
+3,SIMM-P,exposure,,0
+4,SIMM-P,standaloneAllocation,TestZero1,0
+5,SIMM-P,standaloneAllocation,TestZero2,0

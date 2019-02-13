@@ -1,5 +1,12 @@
 import unittest
 from ResultTrees.ImTree import ImTree
+import CRIF.CrifUtil
+import time
+from CRIF.Crif import Crif
+from Calculation.StandardCalculation import StandardCalculation
+from Calculation.EulerAllocation import EulerAllocation
+from Calculation.StandaloneAllocation import StandaloneAllocation
+from CRIF.Crifs import Crifs
 
 class ImTreeTest(unittest.TestCase):
 
@@ -15,3 +22,25 @@ class ImTreeTest(unittest.TestCase):
     def testCrifTree(self):
         crifTree = ImTree(self.exTreeString)
         asdf=1
+
+    def test_Ausgabe(self):
+        Input = CRIF.CrifUtil.read_csv(r'../LarsCRIF_DayBefore.csv')
+        tic = time.time()
+        crif = Crif(Input)
+        imTree = StandardCalculation.calculate(crif)
+        imTree = EulerAllocation.calculate(imTree)
+        imTree = StandaloneAllocation.calculate(imTree)
+        imTree.printToCsv(r'../LarsTestTreeAusgabeDayBefore.csv')
+        toc = time.time()
+        print(toc-tic)
+        asdf = 1
+
+
+    def test_Ausgabe2(self):
+        Input = CRIF.CrifUtil.read_csv(r'../UnitTest_Euler.csv')
+        crifs = Crifs(Input)
+        for key, crif in crifs.items():
+            imTree = StandardCalculation.calculate(crif)
+            imTree = EulerAllocation.calculate(imTree)
+            imTree = StandaloneAllocation.calculate(imTree)
+            imTree.printToCsv(r'../EulerUnitTest_'+key+'.csv')

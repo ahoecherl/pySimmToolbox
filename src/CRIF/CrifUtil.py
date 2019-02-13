@@ -31,11 +31,13 @@ def read_csv(path, sep=','):
                                       'imModel':'IMModel',
                                       'tradeID':'tradeId'}
                   , inplace=True)
-    temp = pd.to_datetime(result.ValuationDate).dt.strftime('%Y-%m-%d')
-    temp.replace('NaT', '', inplace=True)
-    result['ValuationDate'] = temp
-    temp2 = pd.to_datetime(result.EndDate).dt.strftime('%Y-%m-%d')
-    temp2.replace('NaT', '', inplace=True)
-    result['EndDate'] = temp2
+    if 'ValuationDate' in result:
+        temp = pd.to_datetime(result.ValuationDate).dt.strftime('%Y-%m-%d')
+        temp.replace('NaT', '', inplace=True)
+        result['ValuationDate'] = temp
+    if 'EndDate' in result:
+        temp2 = pd.to_datetime(result.EndDate).dt.strftime('%Y-%m-%d')
+        temp2.replace('NaT', '', inplace=True)
+        result['EndDate'] = temp2
     result = result.fillna('')
     return result

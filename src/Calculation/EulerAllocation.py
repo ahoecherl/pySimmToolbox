@@ -7,7 +7,7 @@ import CRIF.CrifUtil
 class EulerAllocation():
 
     DefaultEps = 0.01
-    scaling = False
+    scaling = True
     DisplayEpsilon = 0.001
 
     def calculate(imTree):
@@ -31,7 +31,11 @@ class EulerAllocation():
             eulerAllocation = eulerAllocationMatrix.iloc[value.data.rowNumber]
             eulerAllocation = eulerAllocation[eulerAllocation.abs() > EulerAllocation.DisplayEpsilon]
             if EulerAllocation.scaling:
-                eulerAllocation = eulerAllocation * (value.data.ExposureAmount/eulerAllocation.sum())
+                Delta = eulerAllocation.sum() - value.data.ExposureAmount
+                absSum = eulerAllocation.abs().sum()
+                if absSum != 0:
+                    DeltaT = Delta * (eulerAllocation.abs() / absSum)
+                    eulerAllocation = eulerAllocation - DeltaT
             value.data.eulerAllocation = eulerAllocation
         origTree.hasEulerAllocation = True
         return origTree

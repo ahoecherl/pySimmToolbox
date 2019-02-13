@@ -1,0 +1,13 @@
+crifNo,tradeID,originalTradeID,imModel,productClass,riskType,qualifier,bucket,label1,label2,amount,amountCurrency,amountUSD,endDate,collectRegulations,postRegulations
+1,TestOffset1,TestOffset1,SIMM,Equity,Risk_Equity,ISIN:TestOffset1,1,,,-10000,EUR,-12000,,EMIR,
+1,TestOffset2,TestOffset2,SIMM,Equity,Risk_Equity,ISIN:TestOffset1,1,,,10000,EUR,12000,,EMIR,
+1,TestOffset3,TestOffset3,SIMM,Equity,Risk_Equity,ISIN:TestOffset2,2,,,10000,EUR,12000,,EMIR,
+2,TestZero1,TestZero1,SIMM,Commodity,Risk_FX,USD,,,,0.01,EUR,0.012,,EMIR,
+2,TestZero2,TestZero2,SIMM,Commodity,Risk_FX,USD,,,,0.01,EUR,0.012,,EMIR,
+3,TestBumpOffset1,TestBumpOffset1,SIMM,RatesFX,Risk_IRCurve,EUR,1,6m,Libor6m,10000,EUR,12000,,EMIR,
+3,TestBumpOffset2,TestBumpOffset2,SIMM,RatesFX,Risk_IRCurve,EUR,1,6m,Libor6m,-10010,EUR,-12012,,EMIR,
+4,TestCurv1,TestCurv1,SIMM,Equity,Risk_EquityVol,ISIN:TestCurv1,11,6m,,1,EUR,1.2,,EMIR,
+4,TestCurv2,TestCurv2,SIMM,Equity,Risk_EquityVol,ISIN:TestCurv1,11,6m,,-1,EUR,-1.2,,EMIR,
+4,TestCurv3,TestCurv3,SIMM,Equity,Risk_EquityVol,ISIN:TestCurv3,Residual,6m,,10000,EUR,12000,,EMIR,
+4,TestCurv4,TestCurv4,SIMM,Equity,Risk_EquityVol,ISIN:TestCurv3,Residual,6m,,-10000,EUR,-12000,,EMIR,
+4,TestCurv4,TestCurv4,SIMM,Equity,Risk_EquityVol,ISIN:TestCurv5,5,6m,,-100000,EUR,-120000,,EMIR,
