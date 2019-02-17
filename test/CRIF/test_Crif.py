@@ -52,3 +52,14 @@ class CrifTest(unittest.TestCase):
         leArray = crif.getAllSchedulePVs()
         value = leArray[0].getAmountUSD().doubleValue()
         self.assertEqual(value, 4831209.57108)
+
+    def test9(self):
+        Input = CrifUtil.read_csv(r'../Unittest_CRIF.txt', sep = '\t')
+        crifs = Crifs(Input)
+        crif = crifs['testAN1_collect_EMIR']
+        notionals = crif.getAllAddonNotionals()
+        factors = crif.getAllAddOnNotionalFactors()
+        notionals = JavaArrayListToPythonList(notionals)
+        factors = JavaArrayListToPythonList(factors)
+        self.assertEqual(notionals[0].getNotional().doubleValue(), 10000000.0)
+        self.assertEqual(factors[0].getFactor().doubleValue(), 6.105)

@@ -6,6 +6,10 @@ class Crif():
         self.Sensitivities = {}
         self.ScheduleNotionals = {}
         self.SchedulePVs = {}
+        self.AddOnNotionalFactors = ArrayList()
+        self.AddOnNotionals = {}
+        self.ProductMultipliers = ArrayList()
+        self.AddOnFixedAmounts = ArrayList()
         self.asDataFrame = CRIFdataframe
         if CRIFdataframe[['IMLedis','CollectRegulations','PostRegulations']].drop_duplicates().shape[0]>1:
             raise ValueError('IMLedis column of CRIF had more than one unique value. This function should only be called with the CRIF of a single Counterparty, direction and Regulation. Use Crifs instead.')
@@ -44,6 +48,33 @@ class Crif():
                     self.SchedulePVs[row.tradeId].add(schedulePV.getJavaObj())
                 else:
                     self.SchedulePVs[row.tradeId] = ArrayList(Arrays.asList(schedulePV.getJavaObj()))
+
+            elif (row.IMModel == 'SIMM-P' and row.riskType == 'Param_ProductClassMultiplier'):
+                productMultiplier = ProductMultiplier(row.qualifier,
+                                                      row.amount)
+                self.ProductMultipliers.add(productMultiplier.getJavaObj())
+
+            elif row.riskType == 'Param_AddOnFixedAmount':
+                addOnFixedAmount = AddOnFixedAmount(row.amount,
+                                                    row.amountCurrency,
+                                                    row.amountUSD)
+                self.AddOnFixedAmounts.add(addOnFixedAmount.getJavaObj())
+
+            elif row.riskType == 'Param_AddOnNotionalFactor':
+                addOnNotionalFactor = AddOnNotionalFactor(row.qualifier,
+                                                          row.amountUSD)
+                self.AddOnNotionalFactors.add(addOnNotionalFactor.getJavaObj())
+
+            elif (row.IMModel == 'SIMM-P' and row.riskType =='Notional'):
+                addOnNotional = AddOnNotional(row.qualifier,
+                                              row.amount,
+                                              row.amountCurrency,
+                                              row.amountUSD)
+                if row.tradeId in self.AddOnNotionals:
+                    self.AddOnNotionals[row.tradeId].add(addOnNotional.getJavaObj())
+                else:
+                    self.AddOnNotionals[row.tradeId] = ArrayList(Arrays.asList(addOnNotional.getJavaObj()))
+
             else:
                 sensitivity = Sensitivity(row.productClass,
                                       row.riskType,
@@ -76,6 +107,27 @@ class Crif():
         result = ArrayList()
         for key in self.SchedulePVs:
             result.addAll(self.SchedulePVs[key])
+        return result
+
+    def getAllAddonNotionals(self):
+        result = ArrayList()
+        for key in self.AddOnNotionals:
+            result.addAll(self.AddOnNotionals[key])
+        return result
+
+    def getAllAddOnNotionalFactors(self):
+        result = ArrayList()
+        result.addAll(self.AddOnNotionalFactors)
+        return result
+
+    def getAllAddOnFixedAmounts(self):
+        result = ArrayList()
+        result.addAll(self.AddOnFixedAmounts)
+        return result
+
+    def getAllProductMultipliers(self):
+        result = ArrayList()
+        result.addAll(self.ProductMultipliers)
         return result
 
     def __str__(self):

@@ -5,6 +5,7 @@ import pandas as pd
 from test.testUtils import *
 from simmLib.simmLib import Simm
 import CRIF.CrifUtil
+from CRIF.Crifs import Crifs
 
 class CrifTest(unittest.TestCase):
 
@@ -38,3 +39,43 @@ class CrifTest(unittest.TestCase):
         self.assertAlmostEqual(resultAutoBumped, resultManBumped, places = 3)
         self.assertNotAlmostEqual(resultOrig, resultManBumped, places = 0)
         self.assertNotAlmostEqual(resultOrig, resultAutoBumped, places = 0)
+
+    def test_bumpAddOnNotional(self):
+        eps = 0.1
+        tradeId = 'AN3'
+        Input = CRIF.CrifUtil.read_csv(r'..\Unittest_CRIF.txt', sep = '\t')
+        crifs = Crifs(Input)
+        crif = crifs['testAN1_collect_EMIR']
+        bumpedCrif = BumpedCrif(crif, tradeId, eps)
+        notionals = bumpedCrif.getAllAddonNotionals()
+        notionals = JavaArrayListToPythonList(notionals)
+        origNotionals = crif.getAllAddonNotionals()
+        origNotionals = JavaArrayListToPythonList(origNotionals)
+        self.assertEqual(notionals[0].getNotionalUsd().doubleValue(),11000000)
+        self.assertEqual(origNotionals[0].getNotionalUsd().doubleValue(), 10000000)
+
+    def test_bumpScheduleNotional(self):
+        eps = 0.1
+        Input = CRIF.CrifUtil.read_csv(r'..\ScheduleTestSet.csv', sep=',')
+        crifs = Crifs(Input)
+        crif = crifs['Contract_1_collect_EMIR']
+        bumpedCrif = BumpedCrif(crif, 'trd1', eps)
+        origScheduleNotionals = crif.getAllScheduleNotionals()
+        scheduleNotionals = bumpedCrif.getAllScheduleNotionals()
+        self.assertEqual(origScheduleNotionals[0].getAmountUSD().doubleValue(),120000)
+        self.assertEqual(origScheduleNotionals[1].getAmount().doubleValue(),300000)
+        self.assertEqual(scheduleNotionals[0].getAmountUSD().doubleValue(),132000)
+        self.assertEqual(scheduleNotionals[1].getAmount().doubleValue(),300000)
+
+    def test_bumpSchedulePVs(self):
+        eps = 0.1
+        Input = CRIF.CrifUtil.read_csv(r'..\ScheduleTestSet.csv', sep=',')
+        crifs = Crifs(Input)
+        crif = crifs['Contract_1_collect_EMIR']
+        bumpedCrif = BumpedCrif(crif, 'trd1', eps)
+        origSchedulePVs = crif.getAllSchedulePVs()
+        schedulePVs = bumpedCrif.getAllSchedulePVs()
+        self.assertEqual(origSchedulePVs[0].getAmountUSD().doubleValue(), 2200)
+        self.assertEqual(origSchedulePVs[1].getAmount().doubleValue(), -4000)
+        self.assertEqual(schedulePVs[0].getAmountUSD().doubleValue(), 2420)
+        self.assertEqual(schedulePVs[1].getAmount().doubleValue(), -4000)

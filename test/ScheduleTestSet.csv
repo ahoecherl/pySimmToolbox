@@ -1,0 +1,5 @@
+ValuationDate,IMLedis,tradeId,IMModel,productClass,riskType,qualifier,bucket,label1,label2,amount,amountCurrency,amountUSD,EndDate,CollectRegulations,PostRegulations
+2019-02-17,Contract_1,trd1,Schedule,Equity,Notional,,,,,100000,EUR,120000,2022-01-01,EMIR,
+2019-02-17,Contract_1,trd1,Schedule,Equity,PV,,,,,2000,EUR,2200,2022-01-01,EMIR,
+2019-02-17,Contract_1,trd2,Schedule,Equity,Notional,,,,,300000,EUR,360000,2022-01-01,EMIR,
+2019-02-17,Contract_1,trd2,Schedule,Equity,PV,,,,,-4000,EUR,-4400,2022-01-01,EMIR,
