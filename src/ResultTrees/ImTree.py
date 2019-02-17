@@ -48,3 +48,23 @@ class ImTree(Tree):
                          'value': value}), ignore_index=True)
         result.to_csv(path)
         asdf = 1
+
+    def addScheduleTree(self, FlatTree):
+        length = len(self._nodes)
+        if isinstance(FlatTree, str):
+            FlatTree = StringIO(FlatTree)
+            FlatTree = ResultTrees.ImTreeUtil.read_csv(FlatTree)
+        self.FlatTree = self.FlatTree.append(FlatTree.iloc[1:]).reset_index(drop=True)
+        it = FlatTree.iterrows()
+        i = 0
+        data = ImNodeData(it.__next__()) # Throw Away root
+        data = ImNodeData(it.__next__())
+        self.create_node(tag = str(data), identifier=length, data=data, parent=0)
+        self.get_node(0).data.ExposureAmount += data.ExposureAmount
+        self.get_node(0).tag=str(self.get_node(0).data)
+        for row in it:
+            data=ImNodeData(row)
+            i += 1
+            node = Node(tag=str(data), identifier=i+length, data=data)
+            parent_id = self.identify_parent_id(node)
+            self.add_node(node, parent_id)
