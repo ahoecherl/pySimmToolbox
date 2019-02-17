@@ -33,6 +33,17 @@ class simmLibTest(unittest.TestCase):
         self.assertEqual('2018-11-23', scheduleNotional.getEndDate())
         self.assertAlmostEqual(1200, scheduleNotional.getAmountUsd())
 
+    def test_ScheduleNotional2(self):
+        parOne = 'trade1'
+        parTwo = 'Rates'
+        parThree = LocalDate.of(2018, 9,12)
+        parFour = LocalDate.of(2018, 11, 23)
+        parFive = BigDecimal('1000')
+        parSix = String('EUR')
+        parSeven = BigDecimal('1200')
+        scheduleNotional = (parOne, parTwo, parThree, parFour, parFive, parSix, parSeven)
+        asdf = 1
+
     def test_SchedulePv(self):
         schedulePv = SchedulePv('trade1', 'Rates', '2018-09-12', '2018-11-23', 1000, 'EUR', 1200)
         self.assertEqual('2018-11-23', schedulePv.getEndDate())

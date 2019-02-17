@@ -2,6 +2,7 @@ import os
 os.environ['CLASSPATH'] = r'C:\D-Fine\pySimmToolbox\src\simmLib\simm.jar'
 
 from jnius import autoclass
+from jnius import JavaClass, MetaJavaClass
 
 String = autoclass('java.lang.String')
 BigDecimal = autoclass('java.math.BigDecimal')
@@ -102,16 +103,25 @@ class AddOnNotional(javaClass):
     def getNotionalUsd(self):
         return  self.object.getNotionalUsd().doubleValue()
 
-
 class ScheduleNotional(javaClass):
 
     def __init__(self, tradeId, productClass, valuationDate, endDate, amount, amountCurrency, amountUSD):
         ScheduleNotional = autoclass('com.acadiasoft.im.schedule.models.ScheduleNotional')
-        self.object = ScheduleNotional(String(tradeId), String(productClass), String(str(valuationDate)), String(str(endDate)), String(str(amount)), String(amountCurrency), String(str(amountUSD)))
+        ScheduleProductClass = autoclass('com.acadiasoft.im.schedule.models.imtree.identifiers.ScheduleProductClass')
+        LocalDate = autoclass('java.time.LocalDate')
+        parOne = String(tradeId)
+        parTwo = ScheduleProductClass.determineProductClass(productClass)
+        [y, m, d] = list(map(int, valuationDate.split("-")))
+        parThree = LocalDate.of(y, m, d)
+        [y, m, d] = list(map(int, endDate.split("-")))
+        parFour = LocalDate.of(y, m, d)
+        parFive = BigDecimal(amount)
+        parSix = String(amountCurrency)
+        parSeven = BigDecimal(amountUSD)
+        self.object = ScheduleNotional(parOne, parTwo, parThree, parFour, parFive, parSix, parSeven)
 
     def getEndDate(self):
         DateTimeFormatter = autoclass('java.time.format.DateTimeFormatter')
-        LocalDate = autoclass('java.time.LocalDate')
         return self.object.getEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
     def getAmountUsd(self):
