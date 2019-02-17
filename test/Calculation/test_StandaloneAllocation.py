@@ -16,14 +16,3 @@ class StandardAllocationTest(unittest.TestCase):
         imTree = StandaloneAllocation.calculate(imTree)
         toc = time.time()
         self.assertTrue((toc-tic) < 0.8)
-
-    def test_performance_JPM_komplett(self):
-        Input = CRIF.CrifUtil.read_csv(r'../JPM_komplett_CRIF.csv')
-        tic = time.time()
-        crif = Crif(Input)
-        imTree = StandardCalculation.calculate(crif)
-        imTree = StandaloneAllocation.calculate(imTree)
-        toc = time.time()
-        print(toc-tic)
-        asdf = 1
-        self.assertTrue((toc - tic) < 15)

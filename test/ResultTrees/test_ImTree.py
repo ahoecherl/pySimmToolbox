@@ -21,26 +21,29 @@ class ImTreeTest(unittest.TestCase):
 
     def testCrifTree(self):
         crifTree = ImTree(self.exTreeString)
+        self.assertAlmostEqual(2023872525.630011, crifTree.get_node(0).data.ExposureAmount, places=2)
+        self.assertEqual(crifTree.get_node(2).data.identifier, 'SIMM-P_RatesFX')
+        self.assertEqual(crifTree.get_node(crifTree.get_node(5).bpointer).data.identifier, 'SIMM-P_RatesFX_Interest Rate_Delta')
         asdf=1
 
-    def test_Ausgabe(self):
-        Input = CRIF.CrifUtil.read_csv(r'../LarsCRIF_DayBefore.csv')
-        tic = time.time()
-        crif = Crif(Input)
-        imTree = StandardCalculation.calculate(crif)
-        imTree = EulerAllocation.calculate(imTree)
-        imTree = StandaloneAllocation.calculate(imTree)
-        imTree.printToCsv(r'../LarsTestTreeAusgabeDayBefore.csv')
-        toc = time.time()
-        print(toc-tic)
-        asdf = 1
-
-
-    def test_Ausgabe2(self):
-        Input = CRIF.CrifUtil.read_csv(r'../UnitTest_Euler.csv')
-        crifs = Crifs(Input)
-        for key, crif in crifs.items():
-            imTree = StandardCalculation.calculate(crif)
-            imTree = EulerAllocation.calculate(imTree)
-            imTree = StandaloneAllocation.calculate(imTree)
-            imTree.printToCsv(r'../EulerUnitTest_'+key+'.csv')
+    # def test_Ausgabe(self):
+    #     Input = CRIF.CrifUtil.read_csv(r'../LarsCRIF_DayBefore.csv')
+    #     tic = time.time()
+    #     crif = Crif(Input)
+    #     imTree = StandardCalculation.calculate(crif)
+    #     imTree = EulerAllocation.calculate(imTree)
+    #     imTree = StandaloneAllocation.calculate(imTree)
+    #     imTree.printToCsv(r'../LarsTestTreeAusgabeDayBefore.csv')
+    #     toc = time.time()
+    #     print(toc-tic)
+    #     asdf = 1
+    #
+    #
+    # def test_Ausgabe2(self):
+    #     Input = CRIF.CrifUtil.read_csv(r'../UnitTest_Euler.csv')
+    #     crifs = Crifs(Input)
+    #     for key, crif in crifs.items():
+    #         imTree = StandardCalculation.calculate(crif)
+    #         imTree = EulerAllocation.calculate(imTree)
+    #         imTree = StandaloneAllocation.calculate(imTree)
+    #         imTree.printToCsv(r'../EulerUnitTest_'+key+'.csv')
