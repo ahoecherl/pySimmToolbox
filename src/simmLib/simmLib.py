@@ -151,7 +151,7 @@ class SchedulePv(javaClass):
         parFive = BigDecimal(amount)
         parSix = String(amountCurrency)
         parSeven = BigDecimal(amountUSD)
-        self.object = ScheduleNotional(parOne, parTwo, parThree, parFour, parFive, parSix, parSeven)
+        self.object = SchedulePv(parOne, parTwo, parThree, parFour, parFive, parSix, parSeven)
 
     def getEndDate(self):
         doM = self.object.getEndDate().getDayOfMonth()
