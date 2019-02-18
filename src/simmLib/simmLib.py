@@ -1,5 +1,6 @@
 import os
-os.environ['CLASSPATH'] = r'C:\D-Fine\pySimmToolbox\src\simmLib\simm.jar'
+pathname = os.path.dirname(os.path.abspath(__file__))+'\\simm.jar'
+os.environ['CLASSPATH'] = pathname
 
 from jnius import autoclass
 from jnius import JavaClass, MetaJavaClass
@@ -121,8 +122,10 @@ class ScheduleNotional(javaClass):
         self.object = ScheduleNotional(parOne, parTwo, parThree, parFour, parFive, parSix, parSeven)
 
     def getEndDate(self):
-        DateTimeFormatter = autoclass('java.time.format.DateTimeFormatter')
-        return self.object.getEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        doM = self.object.getEndDate().getDayOfMonth()
+        year = self.object.getEndDate().getYear()
+        month = self.object.getEndDate().getMonthValue()
+        return (str(year)+'-'+str(month)+'-'+str(doM))
 
     def getAmountUsd(self):
         return self.object.getAmountUSD().doubleValue()
@@ -134,9 +137,11 @@ class SchedulePv(javaClass):
         self.object = SchedulePv(String(tradeId), String(productClass), String(str(valuationDate)), String(str(endDate)), String(str(amount)), String(amountCurrency), String(str(amountUSD)))
 
     def getEndDate(self):
+        doM = self.object.getEndDate().getDayOfMonth()
+        year = self.object.getEndDate().getYear()
+        month = self.object.getEndDate().getMonthValue()
+        return (str(year) + '-' + str(month) + '-' + str(doM))
         DateTimeFormatter = autoclass('java.time.format.DateTimeFormatter')
-        LocalDate = autoclass('java.time.LocalDate')
-        return self.object.getEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
     def getAmountUsd(self):
         return self.object.getAmountUSD().doubleValue()
