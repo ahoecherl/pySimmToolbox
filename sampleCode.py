@@ -12,9 +12,16 @@ class codeSamples(unittest.TestCase):
         csvLocation = 'test/NochKleineresTestportfolio.csv'
         # CrifUtil.read_csv should align different formatting styles of the CRIF.
         crif = Crif(CRIF.CrifUtil.read_csv(csvLocation, sep=','))
-        # nach der Erzeugung besteht das CRIF aus ArrayListen von Javaobjekten (Sensitivitäten, ScheduleNotionals etc.)
-        str(crif.getAllSensitivities())
-        str(crif.getAllAddonNotionals())
-        # Außerdem wurde der Datensatz abgespeichert aus dem das CRIF erstellt wurde.
-        crif.asDataFrame.head(20)
+        # After the creation the CRIF consists of ArrayLists of Java objects (sensitivitities, scheduleNotionals etc)
+        print(str(crif.getAllSensitivities()))
+        print(str(crif.getAllAddonNotionals()))
+        # The data set used for creating the crif is stored within the crif object:
+        print(str(crif.asDataFrame.head(20)))
         asdf = 1
+
+    def test_sample_multiCrifImport(self):
+        csvLocation = 'test/UnitTest_CRIF.txt'
+        # Use the Crifs class to create a dictionary of crifs of different counterparties, directions and regulations:
+        crifs = Crifs(CRIF.CrifUtil.read_csv(csvLocation, sep='\t'))
+        # Crifs may be used as any other python Dictionary. The key is a concatinated String of the Form
+        # counterparty_direction_regulation and the values are the associated Crif Objects.

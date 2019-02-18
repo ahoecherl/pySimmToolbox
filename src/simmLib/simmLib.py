@@ -111,7 +111,7 @@ class ScheduleNotional(javaClass):
         ScheduleProductClass = autoclass('com.acadiasoft.im.schedule.models.imtree.identifiers.ScheduleProductClass')
         LocalDate = autoclass('java.time.LocalDate')
         parOne = String(tradeId)
-        parTwo = ScheduleProductClass.determineProductClass(productClass)
+        parTwo = ScheduleProductClass.determineProductClass(String(productClass))
         [y, m, d] = list(map(int, valuationDate.split("-")))
         parThree = LocalDate.of(y, m, d)
         [y, m, d] = list(map(int, endDate.split("-")))
@@ -140,7 +140,18 @@ class SchedulePv(javaClass):
 
     def __init__(self, tradeId, productClass, valuationDate, endDate, amount, amountCurrency, amountUSD):
         SchedulePv = autoclass('com.acadiasoft.im.schedule.models.SchedulePv')
-        self.object = SchedulePv(String(tradeId), String(productClass), String(str(valuationDate)), String(str(endDate)), String(str(amount)), String(amountCurrency), String(str(amountUSD)))
+        ScheduleProductClass = autoclass('com.acadiasoft.im.schedule.models.imtree.identifiers.ScheduleProductClass')
+        LocalDate = autoclass('java.time.LocalDate')
+        parOne = String(tradeId)
+        parTwo = ScheduleProductClass.determineProductClass(String(productClass))
+        [y, m, d] = list(map(int, valuationDate.split("-")))
+        parThree = LocalDate.of(y, m, d)
+        [y, m, d] = list(map(int, endDate.split("-")))
+        parFour = LocalDate.of(y, m, d)
+        parFive = BigDecimal(amount)
+        parSix = String(amountCurrency)
+        parSeven = BigDecimal(amountUSD)
+        self.object = ScheduleNotional(parOne, parTwo, parThree, parFour, parFive, parSix, parSeven)
 
     def getEndDate(self):
         doM = self.object.getEndDate().getDayOfMonth()
