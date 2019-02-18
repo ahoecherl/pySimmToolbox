@@ -68,3 +68,6 @@ class ImTree(Tree):
             node = Node(tag=str(data), identifier=i+length, data=data)
             parent_id = self.identify_parent_id(node)
             self.add_node(node, parent_id)
+
+    def getMargin(self):
+        return self._nodes[0].data.ExposureAmount

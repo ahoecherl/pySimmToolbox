@@ -9,3 +9,8 @@ ValuationDate,IMLedis,tradeId,IMModel,productClass,riskType,qualifier,bucket,lab
 2019-02-17,Contract_2,trd2,Schedule,Equity,PV,,,,,-4000,EUR,-4400,2022-01-01,EMIR,
 ,Contract_2,trd3,SIMM-P,Equity,Risk_Equity,ISIN:12,2,,,3000,EUR,3600,,EMIR,
 ,Contract_2,trd3,SIMM-P,Equity,Risk_IRCurve,EUR,1,1y,Libor3m,-1000,EUR,-1200,,EMIR,
+2018-09-12,Contract_3,trade1,Schedule,Rates,Notional,,,,,1000,USD,1000,2018-11-23,EMIR,
+2018-09-12,Contract_3,trade2,Schedule,Rates,Notional,,,,,-1000,USD,-1000,2018-11-23,EMIR,
+2018-09-12,Contract_3,trade1,Schedule,Rates,PV,,,,,2000,USD,2000,2018-11-23,EMIR,
+2018-09-12,Contract_3,trade1,Schedule,Rates,PV,,,,,-1000,USD,-1000,2018-11-23,EMIR,
+2018-09-12,Contract_3,trade2,Schedule,Rates,PV,,,,,-1000,USD,-1000,2018-11-23,EMIR,
