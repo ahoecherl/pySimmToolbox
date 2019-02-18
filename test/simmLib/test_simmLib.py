@@ -32,11 +32,17 @@ class simmLibTest(unittest.TestCase):
         scheduleNotional = ScheduleNotional('trade1', 'Rates', '2018-09-12', '2018-11-23', 1000, 'EUR', 1200)
         self.assertEqual('2018-11-23', scheduleNotional.getEndDate())
         self.assertAlmostEqual(1200, scheduleNotional.getAmountUsd())
+        self.assertEqual('2018-09-12', scheduleNotional.getValuationDate())
+        self.assertEqual('trade1', scheduleNotional.getJavaObj().getTradeId())
+        self.assertAlmostEqual(1000, scheduleNotional.getJavaObj().getAmount().doubleValue(), places=3)
 
     def test_SchedulePv(self):
         schedulePv = SchedulePv('trade1', 'Rates', '2018-09-12', '2018-11-23', 1000, 'EUR', 1200)
         self.assertEqual('2018-11-23', schedulePv.getEndDate())
         self.assertAlmostEqual(1200, schedulePv.getAmountUsd())
+        self.assertEqual('2018-09-12', schedulePv.getValuationDate())
+        self.assertEqual('trade1', schedulePv.getJavaObj().getTradeId())
+        self.assertAlmostEqual(1000, schedulePv.getJavaObj().getAmount().doubleValue(), places=3)
 
     def testIR7tree(self):
         treeRes = '''Level,Im Model,Silo,RiskClass,SensitivityType,Bucket,WeightedSensitivity,ExposureAmount

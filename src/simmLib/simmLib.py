@@ -125,7 +125,13 @@ class ScheduleNotional(javaClass):
         doM = self.object.getEndDate().getDayOfMonth()
         year = self.object.getEndDate().getYear()
         month = self.object.getEndDate().getMonthValue()
-        return (str(year)+'-'+str(month)+'-'+str(doM))
+        return (str(year)+'-'+f'{month:02}'+'-' + f'{doM:02}')
+
+    def getValuationDate(self):
+        doM = self.object.getValuationDate().getDayOfMonth()
+        year = self.object.getValuationDate().getYear()
+        month = self.object.getValuationDate().getMonthValue()
+        return (str(year) + '-' + f'{month:02}' + '-' + f'{doM:02}')
 
     def getAmountUsd(self):
         return self.object.getAmountUSD().doubleValue()
@@ -140,8 +146,13 @@ class SchedulePv(javaClass):
         doM = self.object.getEndDate().getDayOfMonth()
         year = self.object.getEndDate().getYear()
         month = self.object.getEndDate().getMonthValue()
-        return (str(year) + '-' + str(month) + '-' + str(doM))
-        DateTimeFormatter = autoclass('java.time.format.DateTimeFormatter')
+        return (str(year) + '-' + f'{month:02}' + '-' + f'{doM:02}')
+
+    def getValuationDate(self):
+        doM = self.object.getValuationDate().getDayOfMonth()
+        year = self.object.getValuationDate().getYear()
+        month = self.object.getValuationDate().getMonthValue()
+        return (str(year) + '-' + f'{month:02}' + '-' + f'{doM:02}')
 
     def getAmountUsd(self):
         return self.object.getAmountUSD().doubleValue()
