@@ -32,13 +32,13 @@ class CrifTest(unittest.TestCase):
         resultAutoBumped = simm.calculateStandard(bumpedCrif.getAllSensitivities(),'USD').doubleValue()
         resultManBumped = simm.calculateStandard(manuelCrif.getAllSensitivities(), 'USD').doubleValue()
         resultOrig = simm.calculateStandard(crif.getAllSensitivities(), 'USD').doubleValue()
-        autoSensis = JavaArrayListOfJavaSensitivitiesToListOfSensitivities(bumpedCrif.Sensitivities[tradeId])
-        manuellSensis = JavaArrayListOfJavaSensitivitiesToListOfSensitivities(manuelCrif.Sensitivities[tradeId])
-        for i in range(0, len(autoSensis)):
-            self.assertAlmostEqual(autoSensis[i].getAmount(), manuellSensis[i].getAmount(), places = 5)
-        self.assertAlmostEqual(resultAutoBumped, resultManBumped, places = 3)
-        self.assertNotAlmostEqual(resultOrig, resultManBumped, places = 0)
-        self.assertNotAlmostEqual(resultOrig, resultAutoBumped, places = 0)
+        autoSensis = bumpedCrif.Sensitivities[tradeId]
+        manuellSensis = manuelCrif.Sensitivities[tradeId]
+        for i in range(0, autoSensis.size()):
+            self.assertAlmostEqual(getSensitivityAmount(autoSensis.get(i)), getSensitivityAmount(manuellSensis.get(i)), places=5)
+        self.assertAlmostEqual(resultAutoBumped, resultManBumped, places=3)
+        self.assertNotAlmostEqual(resultOrig, resultManBumped, places=0)
+        self.assertNotAlmostEqual(resultOrig, resultAutoBumped, places=0)
 
     def test_bumpAddOnNotional(self):
         eps = 0.1

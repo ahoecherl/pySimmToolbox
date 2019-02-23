@@ -12,7 +12,7 @@ class simmUnitTests(unittest.TestCase):
         crifs = Crifs(CRIF.CrifUtil.read_csv('..\ScheduleTestSet.csv'))
         crif = crifs['NettingAndAbsoluteNotional_collect_EMIR']
         imTree = StandardCalculation.calculate(crif)
-        self.assertEqual(8, imTree.getMargin())
+        self.assertAlmostEquals(8, imTree.getMargin(), places = 5)
 
     def testNettingAsExpected(self):
         crifs = Crifs(CRIF.CrifUtil.read_csv('..\ScheduleTestSet.csv'))

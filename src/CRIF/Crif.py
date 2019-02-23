@@ -1,3 +1,4 @@
+from simmLib.simmLibUtils import *
 from simmLib.simmLib import *
 
 class Crif():
@@ -23,7 +24,7 @@ class Crif():
                 self.regulation = CRIFdataframe.CollectRegulations.unique()[0]
         for row in CRIFdataframe.itertuples():
             if (row.IMModel == 'Schedule' and row.riskType =='Notional'):
-                scheduleNotional = ScheduleNotional(row.tradeId,
+                scheduleNotional = createScheduleNotional(row.tradeId,
                                                     row.productClass,
                                                     row.ValuationDate,
                                                     row.EndDate,
@@ -31,12 +32,12 @@ class Crif():
                                                     row.amountCurrency,
                                                     row.amountUSD)
                 if row.tradeId in self.ScheduleNotionals:
-                    self.ScheduleNotionals[row.tradeId].add(scheduleNotional.getJavaObj())
+                    self.ScheduleNotionals[row.tradeId].add(scheduleNotional)
                 else:
-                    self.ScheduleNotionals[row.tradeId] = ArrayList(Arrays.asList(scheduleNotional.getJavaObj()))
+                    self.ScheduleNotionals[row.tradeId] = ArrayList(Arrays.asList(scheduleNotional))
 
             elif (row.IMModel == 'Schedule' and row.riskType =='PV'):
-                schedulePV = SchedulePv(row.tradeId,
+                schedulePV = createSchedulePv(row.tradeId,
                                         row.productClass,
                                         row.ValuationDate,
                                         row.EndDate,
@@ -45,38 +46,38 @@ class Crif():
                                         row.amountUSD
                                         )
                 if row.tradeId in self.SchedulePVs:
-                    self.SchedulePVs[row.tradeId].add(schedulePV.getJavaObj())
+                    self.SchedulePVs[row.tradeId].add(schedulePV)
                 else:
-                    self.SchedulePVs[row.tradeId] = ArrayList(Arrays.asList(schedulePV.getJavaObj()))
+                    self.SchedulePVs[row.tradeId] = ArrayList(Arrays.asList(schedulePV))
 
             elif (row.IMModel == 'SIMM-P' and row.riskType == 'Param_ProductClassMultiplier'):
-                productMultiplier = ProductMultiplier(row.qualifier,
+                productMultiplier = createProductMultiplier(row.qualifier,
                                                       row.amount)
-                self.ProductMultipliers.add(productMultiplier.getJavaObj())
+                self.ProductMultipliers.add(productMultiplier)
 
             elif row.riskType == 'Param_AddOnFixedAmount':
-                addOnFixedAmount = AddOnFixedAmount(row.amount,
+                addOnFixedAmount = createAddOnFixedAmount(row.amount,
                                                     row.amountCurrency,
                                                     row.amountUSD)
-                self.AddOnFixedAmounts.add(addOnFixedAmount.getJavaObj())
+                self.AddOnFixedAmounts.add(addOnFixedAmount)
 
             elif row.riskType == 'Param_AddOnNotionalFactor':
-                addOnNotionalFactor = AddOnNotionalFactor(row.qualifier,
+                addOnNotionalFactor = createAddOnNotionalFactor(row.qualifier,
                                                           row.amountUSD)
-                self.AddOnNotionalFactors.add(addOnNotionalFactor.getJavaObj())
+                self.AddOnNotionalFactors.add(addOnNotionalFactor)
 
             elif (row.IMModel == 'SIMM-P' and row.riskType =='Notional'):
-                addOnNotional = AddOnNotional(row.qualifier,
+                addOnNotional = createAddOnNotional(row.qualifier,
                                               row.amount,
                                               row.amountCurrency,
                                               row.amountUSD)
                 if row.tradeId in self.AddOnNotionals:
-                    self.AddOnNotionals[row.tradeId].add(addOnNotional.getJavaObj())
+                    self.AddOnNotionals[row.tradeId].add(addOnNotional)
                 else:
-                    self.AddOnNotionals[row.tradeId] = ArrayList(Arrays.asList(addOnNotional.getJavaObj()))
+                    self.AddOnNotionals[row.tradeId] = ArrayList(Arrays.asList(addOnNotional))
 
             else:
-                sensitivity = Sensitivity(row.productClass,
+                sensitivity = createSensitivity(row.productClass,
                                       row.riskType,
                                       row.qualifier,
                                       row.bucket,
@@ -86,9 +87,9 @@ class Crif():
                                       row.amountCurrency,
                                       row.amountUSD)
                 if row.tradeId in self.Sensitivities:
-                    self.Sensitivities[row.tradeId].add(sensitivity.getJavaObj())
+                    self.Sensitivities[row.tradeId].add(sensitivity)
                 else:
-                    self.Sensitivities[row.tradeId] = ArrayList(Arrays.asList(sensitivity.getJavaObj()))
+                    self.Sensitivities[row.tradeId] = ArrayList(Arrays.asList(sensitivity))
         asdf = 1
 
     def getAllSensitivities(self):
