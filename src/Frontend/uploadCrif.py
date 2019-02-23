@@ -12,7 +12,7 @@ import pandas as pd
 
 import CRIF.CrifUtil
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+external_stylesheets = ['https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
@@ -20,8 +20,8 @@ app.layout = html.Div([
     dcc.Upload(
         id='upload-data',
         children=html.Div([
-            'Drag and Drop or ',
-            html.A('Select Files')
+            'Drag and Drop a CRIF file or ',
+            html.A('select it.')
         ]),
         style={
             'width': '100%',
@@ -44,13 +44,9 @@ def parse_contents(contents, filename, date):
 
     decoded = base64.b64decode(content_string)
     try:
-        if 'csv' in filename:
-            # Assume that the user uploaded a CSV file
-            df = CRIF.CrifUtil.read_csv(
-                io.StringIO(decoded.decode('utf-8')))
-        elif 'xls' in filename:
-            # Assume that the user uploaded an excel file
-            df = pd.read_excel(io.BytesIO(decoded))
+        # Assume that the user uploaded a CSV file
+        df = CRIF.CrifUtil.read_csv(
+            io.StringIO(decoded.decode('utf-8')))
     except Exception as e:
         print(e)
         return html.Div([

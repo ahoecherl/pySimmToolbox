@@ -23,5 +23,5 @@ class codeSamples(unittest.TestCase):
         csvLocation = 'test/UnitTest_CRIF.txt'
         # Use the Crifs class to create a dictionary of crifs of different counterparties, directions and regulations:
         crifs = Crifs(CRIF.CrifUtil.read_csv(csvLocation, sep='\t'))
-        # Crifs may be used as any other python Dictionary. The key is a concatinated String of the Form
+        # A Crifs object may be used as any other python Dictionary. The key is a concatenated String of the Form
         # counterparty_direction_regulation and the values are the associated Crif Objects.
