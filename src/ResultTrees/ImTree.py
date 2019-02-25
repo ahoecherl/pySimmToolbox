@@ -34,20 +34,41 @@ class ImTree(Tree):
             parent_id = self.identify_parent_id(node)
             self.create_node(tag = str(data), identifier=i, data=data, parent=parent_id)
 
-    def printToCsv(self, path):
-        result = pd.DataFrame(columns=['nodeIdentifier', 'valueType', 'trade', 'value'])
+    def toDataFrame(self):
+        result = pd.DataFrame(columns=['Level','Total','Im Model', 'Silo', 'RiskClass', 'SensitivityType', 'Bucket', 'WeightedSensisitvity', 'AllocationType', 'tradeID', 'ExposureAmount',])
+        lastLevel = {}
         for nodekey, node in self.nodes.items():
-            result = result.append(pd.Series({'nodeIdentifier':node.data.identifier, 'valueType':'exposure','trade': '','value': node.data.ExposureAmount}),ignore_index=True)
+            Level = node.data.Level
+            columnName = result.columns[Level]
+            series = pd.Series({'Level': node.data.Level,
+                                'ExposureAmount': node.data.ExposureAmount,
+                                columnName: node.data.manifestation})
+            if Level-1 in lastLevel:
+                series = series.append(lastLevel[Level-1])
+            series.at['AllocationType'] = 'None'
+            lastLevel[Level] = series[result.columns[1:(Level + 1)]]
+            result = result.append(series, ignore_index=True)
             if self.hasEulerAllocation:
+                seriesBase = series.drop(['ExposureAmount', 'AllocationType'])
                 for key, value in node.data.eulerAllocation.items():
-                    result = result.append(pd.Series({'nodeIdentifier':node.data.identifier, 'valueType': 'eulerAllocation', 'trade': key, 'value':value}),ignore_index=True)
+                    seriesBase.at['ExposureAmount'] = value
+                    seriesBase.at['AllocationType'] = 'Euler'
+                    seriesBase.at['tradeID'] = key
+                    result = result.append(seriesBase, ignore_index=True)
             if self.hasStandaloneAllocation:
+                seriesBase = series.drop(['ExposureAmount', 'AllocationType'])
                 for key, value in node.data.standaloneAllocation.items():
-                    result = result.append(pd.Series(
-                        {'nodeIdentifier': node.data.identifier, 'valueType': 'standaloneAllocation', 'trade': key,
-                         'value': value}), ignore_index=True)
+                    seriesBase.at['ExposureAmount'] = value
+                    seriesBase.at['AllocationType'] = 'Standalone'
+                    seriesBase.at['tradeID'] = key
+                    result = result.append(seriesBase, ignore_index=True)
+            asdf = 1
+        result = result.fillna('')
+        return result
+
+    def printToCsv(self, path):
+        result = self.toDataFrame()
         result.to_csv(path)
-        asdf = 1
 
     def addScheduleTree(self, FlatTree):
         length = len(self._nodes)
@@ -71,3 +92,26 @@ class ImTree(Tree):
 
     def getMargin(self):
         return self._nodes[0].data.ExposureAmount
+
+    def to_dict(self, nid=None, key=None, sort=True, reverse=False, with_data=False):
+        """transform self into a dict"""
+
+        nid = self.root if (nid is None) else nid
+        ntag = self[nid].tag
+        tree_dict = {ntag: {"children": []}}
+        if with_data:
+            tree_dict[ntag]["data"] = self[nid].data.to_dict()
+
+        if self[nid].expanded:
+            queue = [self[i] for i in self[nid].fpointer]
+            key = (lambda x: x) if (key is None) else key
+            if sort:
+                queue.sort(key=key, reverse=reverse)
+
+            for elem in queue:
+                tree_dict[ntag]["children"].append(
+                    self.to_dict(elem.identifier, with_data=with_data, sort=sort, reverse=reverse))
+            if len(tree_dict[ntag]["children"]) == 0:
+                tree_dict = self[nid].tag if not with_data else \
+                            {ntag: {"data":self[nid].data.to_dict()}}
+            return tree_dict

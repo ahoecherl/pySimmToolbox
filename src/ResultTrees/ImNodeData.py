@@ -29,3 +29,6 @@ class ImNodeData(object):
 
     def __str__(self):
         return self.manifestation + ' ' + '%.0f' % self.ExposureAmount
+
+    def to_dict(self):
+        return vars(self)

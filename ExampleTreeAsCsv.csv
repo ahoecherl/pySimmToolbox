@@ -1,0 +1,11 @@
+,Level,Total,Im Model,Silo,RiskClass,SensitivityType,Bucket,WeightedSensisitvity,AllocationType,tradeID,ExposureAmount
+0,1,Total,,,,,,,None,,6243814.186741408
+1,2,Total,SIMM-P,,,,,,None,,6243814.186741408
+2,3,Total,SIMM-P,RatesFX,,,,,None,,6243814.186741408
+3,4,Total,SIMM-P,RatesFX,Interest Rate,,,,None,,6243814.186741405
+4,5,Total,SIMM-P,RatesFX,Interest Rate,Curvature,,,None,,434485.75701061304
+5,6,Total,SIMM-P,RatesFX,Interest Rate,Curvature,EUR,,None,,25094.520960785787
+6,5,Total,SIMM-P,RatesFX,Interest Rate,Delta,,,None,,5093591.585202556
+7,6,Total,SIMM-P,RatesFX,Interest Rate,Delta,EUR,,None,,5093591.585202556
+8,5,Total,SIMM-P,RatesFX,Interest Rate,Vega,,,None,,715736.8445282389
+9,6,Total,SIMM-P,RatesFX,Interest Rate,Vega,EUR,,None,,715736.8445282389

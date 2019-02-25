@@ -50,7 +50,7 @@ class Crif():
                 else:
                     self.SchedulePVs[row.tradeId] = ArrayList(Arrays.asList(schedulePV))
 
-            elif (row.IMModel == 'SIMM-P' and row.riskType == 'Param_ProductClassMultiplier'):
+            elif (row.IMModel in ['SIMM-P','SIMM', ''] and row.riskType == 'Param_ProductClassMultiplier'):
                 productMultiplier = createProductMultiplier(row.qualifier,
                                                       row.amount)
                 self.ProductMultipliers.add(productMultiplier)
@@ -66,7 +66,7 @@ class Crif():
                                                           row.amountUSD)
                 self.AddOnNotionalFactors.add(addOnNotionalFactor)
 
-            elif (row.IMModel == 'SIMM-P' and row.riskType =='Notional'):
+            elif (row.IMModel in ['SIMM-P','SIMM', ''] and row.riskType =='Notional'):
                 addOnNotional = createAddOnNotional(row.qualifier,
                                               row.amount,
                                               row.amountCurrency,
