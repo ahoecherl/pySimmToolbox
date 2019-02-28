@@ -35,7 +35,7 @@ class ImTree(Tree):
             self.create_node(tag = str(data), identifier=i, data=data, parent=parent_id)
 
     def toDataFrame(self):
-        result = pd.DataFrame(columns=['Level','Total','Im Model', 'Silo', 'RiskClass', 'SensitivityType', 'Bucket', 'WeightedSensisitvity', 'AllocationType', 'tradeID', 'ExposureAmount',])
+        result = pd.DataFrame(columns=['Level','Total','Im Model', 'Silo', 'RiskClass', 'SensitivityType', 'Bucket', 'WeightedSensisitvity', 'AllocationType', 'tradeID', 'ExposureAmount','identifier','parentIdentifier'])
         lastLevel = {}
         for nodekey, node in self.nodes.items():
             Level = node.data.Level
@@ -46,6 +46,9 @@ class ImTree(Tree):
             if Level-1 in lastLevel:
                 series = series.append(lastLevel[Level-1])
             series.at['AllocationType'] = 'None'
+            series.at['identifier'] = str(node.identifier)
+            if node.bpointer is not None:
+                series.at['parentIdentifier'] = str(self.get_node(node.bpointer).identifier)
             lastLevel[Level] = series[result.columns[1:(Level + 1)]]
             result = result.append(series, ignore_index=True)
             if self.hasEulerAllocation:
@@ -68,7 +71,7 @@ class ImTree(Tree):
 
     def printToCsv(self, path):
         result = self.toDataFrame()
-        result.to_csv(path)
+        result.to_csv(path, index=False)
 
     def addScheduleTree(self, FlatTree):
         length = len(self._nodes)

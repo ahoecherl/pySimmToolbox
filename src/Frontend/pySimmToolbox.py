@@ -14,6 +14,7 @@ import CRIF.CrifUtil
 from CRIF.Crif import Crif
 from Calculation.StandardCalculation import StandardCalculation
 from Frontend.FrontendDataFiltering import *
+from Frontend.FrontendGraphs import *
 
 external_stylesheets = ['https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css']
 
@@ -47,7 +48,7 @@ app.layout = html.Div([
             html.Div([
                 html.Div([
                     html.Div([
-                        html.H6('Selected Counterparty: ',
+                        html.H6('Selected CRIF: ',
                                 style={'textAlign': 'right'})
                     ], className="col s2"),
 
@@ -87,17 +88,17 @@ app.layout = html.Div([
                 ], className="row")
             ]),
             html.Hr(),
-            # dcc.Dropdown(id='counterpartySelect',
-            #              placeholder = 'Please upload a CRIF',
-            #              clearable=False),
             html.Div(id='output-data-upload')
         ]),
         dcc.Tab(label='IM', value='Initial Margin', children=[
             html.Div([
                 dcc.Store(id='IMResult')]),
             html.H5(id='calculated IM', style={'textAlign':'center',
-                                               'topMargin' : '20px'})
+                                               'topMargin' : '20px'}),
+            html.Hr(),
+            dcc.Graph(id='IMTree')
         ]),
+
         dcc.Tab(label='Allocation', value='IM Allocation')
     ])
 ])
@@ -146,8 +147,8 @@ def fill_CrifsStorage(contents):
         json = df.to_json()
         return json
 
-# Nachdem ein CRIF hochgeladen wurde wird das CRIF der ersten Gegenpartei als analysierbares CRIF abgespeichert.
-# Wenn man im Dropdownmenü eine andere Gegenpartei auswählt wird das gespeicherte CRIF zur Analyse entsprechend angepasst.
+# Nachdem ein CRIF hochgeladen wurde wird das erste CRIF als analysierbares CRIF abgespeichert.
+# Wenn man im Dropdownmenü eine anderes CRIF auswählt wird das gespeicherte CRIF zur Analyse entsprechend angepasst.
 @app.callback(Output('Crif', 'data'),
               [Input('counterpartySelect', 'value')],
               [State('Crifs', 'data')])
@@ -205,7 +206,7 @@ def change_Calculate_IM_Button_color(value, style):
 
 # When calculate IM is pressed IM is calculated and non-allocated result is saved
 @app.callback(Output('IMResult', 'data'),
-                        [Input('Calculate IM', 'n_clicks')]
+                        [Input('Calculate IM', 'n_clicks')],
                         [State('Crif', 'data')])
 def calculate_IM(n_clicks, data):
     if data is None:
@@ -218,7 +219,18 @@ def calculate_IM(n_clicks, data):
 @app.callback(Output('calculated IM', 'children'),
               [Input('IMResult', 'data')])
 def show_calculated_IM(data):
-    pass
+    if data is None:
+        raise PreventUpdate
+    im = getIM(pd.read_json(data))
+    ResultString = 'The calculated IM is ' + '{:,.2f}'.format(im)
+    return ResultString
+
+@app.callback(Output('IMTree', 'figure'),
+              [Input('IMResult', 'data')])
+def generate_IMTree(data):
+    if data is None:
+        raise PreventUpdate
+    return create_tree_graph(pd.read_json(data))
 
 # @app.callback(Output('calculated IM', 'children'),
 #                 [Input('Calculate IM', 'n_clicks')],

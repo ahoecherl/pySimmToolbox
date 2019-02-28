@@ -56,6 +56,7 @@ class ImTreeTest(unittest.TestCase):
         crif = crifs.get(next(iter(crifs)))
         imTree = StandardCalculation.calculate(crif)
         df = imTree.toDataFrame()
+        imTree.printToCsv(r'..\ExampleTreeAsCsv.csv')
 
     def test_toDataFrameWithEuler(self):
         Input = CRIF.CrifUtil.read_csv(r'..\NochKleineresTestportfolio.csv')
