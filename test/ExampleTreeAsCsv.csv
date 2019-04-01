@@ -1,19 +1,20 @@
 Level,Total,Im Model,Silo,RiskClass,SensitivityType,Bucket,WeightedSensisitvity,AllocationType,tradeID,ExposureAmount,identifier,parentIdentifier
-1,Total,,,,,,,None,,7928613.848321684,0,
-2,Total,SIMM-P,,,,,,None,,205111.02131176688,1,0
-3,Total,SIMM-P,RatesFX,,,,,None,,10195.177125547754,2,1
-4,Total,SIMM-P,RatesFX,Interest Rate,,,,None,,3637.13877465834,3,2
-5,Total,SIMM-P,RatesFX,Interest Rate,Delta,,,None,,3637.13877465834,4,3
-6,Total,SIMM-P,RatesFX,Interest Rate,Delta,EUR,,None,,2210.4935117244313,5,4
-6,Total,SIMM-P,RatesFX,Interest Rate,Delta,BRL,,None,,3289.6634350417357,6,4
-4,Total,SIMM-P,RatesFX,FX,,,,None,,8625.504954716002,7,2
-5,Total,SIMM-P,RatesFX,FX,Delta,,,None,,8625.504954716002,8,7
-6,Total,SIMM-P,RatesFX,FX,Delta,FX,,None,,8625.504954716002,9,8
-7,Total,SIMM-P,RatesFX,FX,Delta,FX,BRL,None,,-8625.504954716002,10,9
-3,Total,SIMM-P,Add On,,,,,None,,194915.84418621915,11,1
-4,Total,SIMM-P,Add On,RatesFX,,,,None,,4078.0708502191014,12,11
-4,Total,SIMM-P,Add On,AddOnNotional,,,,None,,70837.77333600001,13,11
-4,Total,SIMM-P,Add On,AddOnFixed,,,,None,,120000.0,14,11
-2,Total,Schedule,,,,,,None,,7723502.827009917,15,0
-3,Total,Schedule,Equity,,,,,None,,9228600.0,16,15
-3,Total,Schedule,FX,,,,,None,,10080157.0675248,17,15
+1,Total,,,,,,,None,,7980111.238504283,0,
+2,Total,SIMM-P,,,,,,None,,256608.4114943657,1,0
+3,Total,SIMM-P,RatesFX,,,,,None,,46979.02725597549,2,1
+4,Total,SIMM-P,RatesFX,FX,,,,None,,45901.91043890955,3,2
+5,Total,SIMM-P,RatesFX,FX,Delta,,,None,,45901.91043890955,4,3
+6,Total,SIMM-P,RatesFX,FX,Delta,FX,,None,,45901.91043890955,5,4
+7,Total,SIMM-P,RatesFX,FX,Delta,FX,BRL,None,,-8625.504954716002,6,5
+7,Total,SIMM-P,RatesFX,FX,Delta,FX,USD,None,,-40977.267175417604,7,5
+4,Total,SIMM-P,RatesFX,Interest Rate,,,,None,,3637.13877465834,8,2
+5,Total,SIMM-P,RatesFX,Interest Rate,Delta,,,None,,3637.13877465834,9,8
+6,Total,SIMM-P,RatesFX,Interest Rate,Delta,EUR,,None,,2210.4935117244313,10,9
+6,Total,SIMM-P,RatesFX,Interest Rate,Delta,BRL,,None,,3289.6634350417357,11,9
+3,Total,SIMM-P,Add On,,,,,None,,209629.3842383902,12,1
+4,Total,SIMM-P,Add On,RatesFX,,,,None,,18791.6109023902,13,12
+4,Total,SIMM-P,Add On,AddOnNotional,,,,None,,70837.77333600001,14,12
+4,Total,SIMM-P,Add On,AddOnFixed,,,,None,,120000.0,15,12
+2,Total,Schedule,,,,,,None,,7723502.827009917,16,0
+3,Total,Schedule,Equity,,,,,None,,9228600.0,17,16
+3,Total,Schedule,FX,,,,,None,,10080157.0675248,18,16
