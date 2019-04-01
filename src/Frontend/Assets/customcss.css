@@ -1,0 +1,174 @@
+.CRIFUpload{
+    font-size: 24px;
+    font-weight: 300;
+    color: #003c50;
+    border-style: dashed;
+    border-color: #D26400;
+    border-weight: 3px;
+}
+
+body{
+    margin: 0;
+    background-color: #efeeeb;
+}
+
+.d-fine-logo{
+    width: 5em;
+    height: auto;
+    margin: 10px;
+}
+
+nav ul li a:hover{
+    background-color: #64cbff !important;
+    color: #003c50 !important;
+}
+
+.custom-tabs-container {
+    width: 100%;
+}
+.custom-tabs {
+    border-top-left-radius: 3px;
+    margin-top: 10px
+}
+
+.custom-tab {
+    color:#586069;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top: 3px solid transparent !important;
+    border-left: 1px !important;
+    border-right: 1px !important;
+    border-bottom: 3px solid #D26400 !important;
+    background-color: #EFEEEB !important;
+    padding: 12px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+.custom-tab--selected {
+    color: #003C50;
+    border-bottom: 3px solid #D26400 !important;
+    border-top: 2px solid #003C50 !important;
+    background-color: white !important;
+}
+
+.leftTab{
+    border-bottom-left-radius: 3px;
+}
+
+.rightTab{
+    border-bottom-right-radius: 3px;
+}
+
+.container {
+    margin: 0 auto !important;
+    max-width: none !important;
+    width: 90% !important;
+}
+/*@media only screen and (min-width: 601px) {*/
+    /*.container {*/
+        /*width: 100%;*/
+        /*margin: 0 auto;*/
+        /*max-width: none !important;*/
+  /*}*/
+/*}*/
+/*@media only screen and (min-width: 993px) {*/
+  /*.container {*/
+      /*width: 100%;*/
+      /*margin: 0 auto;*/
+      /*max-width: none !important;*/
+  /*}*/
+/*}*/
+
+.UploadLink{
+    color: #003C50;
+    text-decoration: underline;
+}
+
+.UploadLink:hover {
+    cursor: pointer;
+}
+
+.row{
+    display: flex;
+}
+
+.col{
+    display: flex;
+    flex-direction: column;
+}
+
+.card-panel{
+    flex: 1;
+}
+
+.card-panelNoflex{
+    flex: 0;
+}
+
+.card{
+    flex: 1;
+}
+
+.Select{
+    color: #003c50
+}
+
+.colNoflex{
+    display: block !important;
+}
+
+rowNoflex{
+    display: block !important;
+}
+
+.ButtonRow{
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+.innerPanel{
+    text-align: center !important;
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px!important;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0px !important;
+}
+
+.innerDiv{
+    padding: 0.3em !important;
+}
+
+.innerRow{
+    margin-bottom: 0px !important;
+}
+
+.cardLink:hover{
+    cursor: pointer;
+}
+
+.treeheading{
+    margin-top: 24px !important;
+    margin-left: 24px!important;
+}
+
+.treecardcontent{
+    padding: 0px !important;
+}
+
+.treecard{
+    padding: 0px !important;
+}
+
+.treeNav{
+    height: 40px !important;
+    margin-bottom: 20px !important;
+}
+
+.breadcrumb:before{
+    margin: 0 !important;
+}
+

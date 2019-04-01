@@ -40,6 +40,8 @@ class codeSamples(unittest.TestCase):
         crif = Crif(CRIF.CrifUtil.read_csv(csvLocation, sep=','))
         # call StandardCalculation.calculate(crif) to calculate the Initial Margin and create an IM Tree
         imTree = StandardCalculation.calculate(crif)
+        imTree = EulerAllocation.calculate(imTree)
+        imTree = StandaloneAllocation.calculate(imTree)
         # The resulting IM Tree can be displayed relatively conveniently with print
         print(imTree)
         # Alternatively it may be transformed into a DataFrame to simplify analysis of the result in Python

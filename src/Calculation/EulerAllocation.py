@@ -2,26 +2,44 @@ from CRIF.BumpedCrif import  BumpedCrif
 from simmLib.simmLib import Simm, GenerateCsvString
 from io import StringIO
 import pandas as pd
+from multiprocessing import Pool
 import CRIF.CrifUtil
 
 class EulerAllocation():
 
-    DefaultEps = 0.01
+    DefaultEps = 0.001
     scaling = True
     DisplayEpsilon = 0.001
+    parallelProcessing = False
 
     def calculate(imTree):
         imTree.EulerAllocationEps = EulerAllocation.DefaultEps
         trades = imTree.Crif.Sensitivities.keys()
-        bumpedFlatTrees = {}
-        for t in trades:
-            bumpedCrifs = BumpedCrif(imTree.Crif, t, imTree.EulerAllocationEps)
-            javaTree = Simm.calculateTreeStandard(bumpedCrifs.getAllSensitivities(), imTree.CalculationCurrency)
-            stringTree = GenerateCsvString.parseToFlatCsv(javaTree)
-            stringTree = StringIO(stringTree)
-            bumpedFlatTrees[t] = pd.read_csv(stringTree)
+        if EulerAllocation.parallelProcessing:
+            # create tuples for multiprocess call:
+            inputtuples = []
+            for t in trades:
+                inputtuples.append((imTree.Crif, imTree.CalculationCurrency, t, imTree.EulerAllocationEps))
+            with Pool() as pool:
+                bumpedFlatTrees = pool.starmap(EulerAllocation.createBumpedFlatTrees, inputtuples)
+        else:
+            bumpedFlatTrees = {}
+            for t in trades:
+                bumpedCrifs = BumpedCrif(imTree.Crif, t, imTree.EulerAllocationEps)
+                javaTree = Simm.calculateTreeStandard(bumpedCrifs.getAllSensitivities(), imTree.CalculationCurrency)
+                stringTree = GenerateCsvString.parseToFlatCsv(javaTree)
+                stringTree = StringIO(stringTree)
+                bumpedFlatTrees[t] = pd.read_csv(stringTree)
         result = EulerAllocation.eulerAllocationInTree(imTree, bumpedFlatTrees, imTree.EulerAllocationEps)
         return result
+
+    def createBumpedFlatTrees(crif, calculationCurrency, tradeID, eps):
+        bumpedCrif= BumpedCrif(crif, tradeID, eps)
+        javaTree = Simm.calculateTreeStandard(bumpedCrif.getAllSensitivities(), calculationCurrency)
+        stringTree = GenerateCsvString.parteToFlatCsv(javaTree)
+        stringTree = StringIO(stringTree)
+        result = pd.read_csv(stringTree)
+        return {tradeID: result}
 
     def eulerAllocationInTree(origTree, bumpedFlatTrees, eps):
         eulerAllocationMatrix = pd.DataFrame()

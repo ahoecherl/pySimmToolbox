@@ -36,7 +36,9 @@ def read_csv(path, sep=','):
 
     result = pd.read_csv(path, sep=sep, dtype=dtypes)
     result.rename(index=str, columns={'valuationDate':'ValuationDate',
-                                      'crifNo':'IMLedis','endDate':'EndDate',
+                                      'crifNo':'IMLedis',
+                                      'portfolioId': 'IMLedis',
+                                      'endDate':'EndDate',
                                       'postRegulations':'PostRegulations',
                                       'collectRegulations':'CollectRegulations',
                                       'imModel':'IMModel',
@@ -50,6 +52,7 @@ def read_csv(path, sep=','):
                                       'Label2': 'label2',
                                       'Amount': 'amount',
                                       'AmountUSD': 'amountUSD',
+                                      'amountUsd': 'amountUSD',
                                       'AmountCurrency': 'amountCurrency',
                                       'TradeID': 'tradeId'}
                   , inplace=True)
@@ -58,6 +61,7 @@ def read_csv(path, sep=','):
         temp.replace('NaT', '', inplace=True)
         result['ValuationDate'] = temp
     if 'EndDate' in result:
+        result.replace('<null>', '', inplace=True)
         temp2 = pd.to_datetime(result.EndDate).dt.strftime('%Y-%m-%d')
         temp2.replace('NaT', '', inplace=True)
         result['EndDate'] = temp2
@@ -67,5 +71,8 @@ def read_csv(path, sep=','):
         result['PostRegulations'] = ''
     if not 'IMModel' in result:
         result['IMModel'] = 'SIMM-P'
+    # Replace possible ' ' in CollectRegulation and PostRegulations with ''
+    result['CollectRegulations'] = result.CollectRegulations.replace(' ', '')
+    result['PostRegulations'] = result.PostRegulations.replace(' ', '')
     result = result.fillna('')
     return result
