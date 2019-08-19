@@ -16,4 +16,4 @@ This is necessary to enable imports in the `test` Folder.
 
 If you want to import the Library and use it please check the usage examples found in sampleCode.py
 
-Alternatively you can use the Frontend of the tool by starting `src/Frontend/Frontend.py` and opening the html link displayed in the console.
+Alternatively you can use the Frontend of the tool by starting `src/Frontend/pySimmToolbox_v3.py` and opening the html link displayed in the console.
