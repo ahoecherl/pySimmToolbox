@@ -70,6 +70,7 @@ def create_tree_graph(df):
                       marker=dict(symbol='diamond-wide',
                                 size=(60*factor),
                                 color=labels['color'],
+                                colorbar=dict(title='Colorbar', thickness = 10),
                                 colorscale='Portland',
                                 line=dict(color='rgb(50,50,50)', width=1)
                                 ),

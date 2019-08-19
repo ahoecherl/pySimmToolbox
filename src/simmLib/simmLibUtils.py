@@ -17,7 +17,7 @@ def createSensitivity(*args):
         return Sensitivity(String(productClass),
                            String(riskType),
                            String(qualifier),
-                           String(bucket),
+                           String(str(bucket)),
                            String(label1),
                            String(label2),
                            BigDecimal(String(str(amount))),
